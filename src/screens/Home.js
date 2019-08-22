@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import Touchable from 'react-native-platform-touchable';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import Drawer from 'react-native-drawer';
@@ -11,8 +10,13 @@ import NameLogo from '../assets/logo/NOME_APLICATIVO.png';
 import LogoSemFundo from '../assets/logo/LOGO_SEMFUNDO_APLICATIVO.png';
 import { styleGlobal } from './StyleGlobal';
 
+import { connect } from 'react-redux';
+import { lyricsArray } from '../actions/lyricsAction';
+import { uriVideo } from '../actions/videoActions';
 
-export default class Home extends Component {
+
+
+export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +30,8 @@ export default class Home extends Component {
     let s = this.state;
     s.projeto = 'continue';
     this.setState(s);
+    this.props.uriVideo('');
+    this.props.lyricsArray(['']);
   }
 
   contentDrawer = () => {
@@ -49,6 +55,11 @@ export default class Home extends Component {
               <Icon name="library-books" size={28} color={styleGlobal.colorIcon} />
               <Text style={styles.textButton}>Adicionar a Legenda</Text>
             </TouchableOpacity>
+
+            <View style={{ justifyContent: 'center', marginTop: 20, backgroundColor:'#f42', height:'50%' }}>
+              <Text style={styles.textButton}>{this.props.lyrics}</Text>
+              <Text style={styles.textButton}>{this.props.uriVideoPath}</Text>
+            </View>
 
           </View>
         </ImageBackground>
@@ -89,7 +100,7 @@ export default class Home extends Component {
 
             <View style={styles.areaButton}>
               {
-                this.state.projeto === 'novo' ?
+                (this.state.projeto === 'novo' && this.props.lyrics.length === 1 && this.props.uriVideoPath==='') ?
                   (
                     <TouchableOpacity style={styles.button} onPress={() => { this.newProject() }}>
                       <NewButton params={{ props: 'novo' }} />
@@ -166,3 +177,13 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
 })
+
+const mapStateToProps = (state) => {
+  return {
+    lyrics: state.lyrics.inputLyric,
+    uriVideoPath:state.video.uriVideoPath,
+  }
+}
+
+const homeConnect = connect(mapStateToProps, { lyricsArray, uriVideo })(Home);
+export default homeConnect;
