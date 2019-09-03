@@ -46,7 +46,7 @@ export class inputText extends Component {
     return (
       <LinearGradient colors={styleGlobal.backgroundGlobal} style={styles.lgcontainer} >
         <View style={styles.container}>
-          <TouchableOpacity style={styles.button} onPress={() => { this.clipboardGetString() }}>
+          <TouchableOpacity style={[styles.button, { marginTop: 20 }]} onPress={() => { this.clipboardGetString() }}>
             <View style={styles.newButton}>
               <Icon name="content-paste" style={{ marginLeft: 10 }} size={28} color={styleGlobal.colorIcon} />
               <Icon name="add" style={{ marginLeft: -12, marginTop: 3 }} size={20} color={'#ffff00'} />
@@ -62,15 +62,30 @@ export class inputText extends Component {
 
           <View style={styles.returnHeader}>
             <Text style={styles.textOfLyrics} numberOfLines={2}>A letra que será utilizada para Legendar o vídeo</Text>
-            <WheelPicker
+            {
+              (this.props.lyrics.length > 0)
+              &&
+              <WheelPicker
               style={{ height: '75%', width: '100%' }}
               selectedItem={0}
               data={this.props.lyrics}
               onItemSelected={() => { }}
-              itemTextSize={8}
-              selectedItemTextSize={10}
+              itemTextSize={10}
+              selectedItemTextSize={11}
             />
+            }
           </View>
+
+          {
+            (this.props.lyrics.length > 1) &&
+            <TouchableOpacity style={[styles.button, { marginTop: 30 }]} onPress={() => { this.props.navigation.navigate('Home') }}>
+              <View style={styles.newButton}>
+                <Icon name="done-all" style={{ marginLeft: 10 }} size={28} color={styleGlobal.colorIcon} />
+                <Text style={styles.textNewButton} >Finalizar</Text>
+              </View>
+            </TouchableOpacity>
+          }
+
         </View>
       </LinearGradient>
     )
@@ -83,7 +98,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 10
+    paddingTop: 10
   },
   button: {
     width: '50%',
@@ -116,14 +131,16 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     backgroundColor: 'rgba(200,235,235,0.8)',
     borderColor: '#999',
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: 5
   },
   returnHeader: {
     height: '25%',
     width: '100%',
     marginTop: 30,
     backgroundColor: 'rgba(154,182,139,0.8)',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 5
   },
   textOfLyrics: {
     fontSize: 12,

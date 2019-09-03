@@ -53,7 +53,10 @@ export class searchVideo extends Component {
   }
 
   pathDirectoryOs(response) {
-    let state = this.state;
+    if(response.uri === undefined) {
+      alert('Selecione um item válido')
+    } else {
+      let state = this.state;
     switch (Platform.OS) {
       case 'ios':
         state.colorBgSearch = '';
@@ -67,6 +70,7 @@ export class searchVideo extends Component {
         break;
     }
     this.fileName();
+    }
   };
 
   fileName() {
@@ -214,7 +218,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '40%',
-    width: '100%'
+    width: '100%',
+    borderRadius: 10
   },
   backgroundVideo: {
     position: 'absolute',
@@ -225,7 +230,7 @@ const styles = StyleSheet.create({
   },
   viewConfirm: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   confirmButton: {
     backgroundColor: '#9ab68b',
@@ -238,7 +243,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign:'center'
+    textAlign:'center',
   },
   textButton: {
     fontSize: 12,
@@ -246,9 +251,10 @@ const styles = StyleSheet.create({
     color: '#f6e7f9'
   },
   textUriConfirm: {
-    fontSize: 14,
+    fontSize: 11,
     fontWeight: 'bold',
     color: '#f6e7f9',
+    textAlign:'center'
   },
 })
 

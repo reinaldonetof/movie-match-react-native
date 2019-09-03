@@ -46,20 +46,45 @@ export class Home extends Component {
 
           <View>
 
-            <TouchableOpacity style={{ flexDirection: 'row', marginTop: 20, marginLeft: 20 }} onPress={() => { this.props.navigation.navigate('searchVideo') }}>
-              <Icon name="video-library" size={28} color={styleGlobal.colorIcon} />
-              <Text style={styles.textButton}>Buscar Vídeo</Text>
-            </TouchableOpacity>
+            {
+              (this.props.uriVideoPath !== '') ?
+                <TouchableOpacity style={styles.touchDrawer} onPress={() => { this.props.navigation.navigate('searchVideo') }}>
+                  <Icon name="video-library" size={28} color={'#0F0'} />
+                  <Text style={[styles.textButton, { color: '#0F0' }]}>Buscar Vídeo</Text>
+                  <Icon name="done-all" size={28} color={'#0F0'} />
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.touchDrawer} onPress={() => { this.props.navigation.navigate('searchVideo') }}>
+                  <Icon name="video-library" size={28} color={styleGlobal.colorIcon} />
+                  <Text style={styles.textButton}>Buscar Vídeo</Text>
+                </TouchableOpacity>
+            }
 
-            <TouchableOpacity style={{ flexDirection: 'row', marginTop: 20, marginLeft: 20 }} onPress={() => { this.props.navigation.navigate('homeToLyrics') }}>
-              <Icon name="library-books" size={28} color={styleGlobal.colorIcon} />
-              <Text style={styles.textButton}>Adicionar a Legenda</Text>
-            </TouchableOpacity>
+            {
+              (this.props.lyrics.length > 1) ?
+                <TouchableOpacity style={styles.touchDrawer} onPress={() => { this.props.navigation.navigate('homeToLyrics') }}>
+                  <Icon name="library-books" size={28} color={'#0F0'} />
+                  <Text style={[styles.textButton, { color: '#0F0' }]}>Adicionar a Legenda</Text>
+                  <Icon name="done-all" size={28} color={'#0F0'} />
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.touchDrawer} onPress={() => { this.props.navigation.navigate('homeToLyrics') }}>
+                  <Icon name="library-books" size={28} color={styleGlobal.colorIcon} />
+                  <Text style={styles.textButton}>Adicionar a Legenda</Text>
+                </TouchableOpacity>
+            }
 
-            <View style={{ justifyContent: 'center', marginTop: 20, backgroundColor:'#f42', height:'50%' }}>
-              <Text style={styles.textButton}>{this.props.lyrics}</Text>
-              <Text style={styles.textButton}>{this.props.uriVideoPath}</Text>
+            <View style={{ justifyContent: 'center', marginTop: 20, backgroundColor: 'transparent', height: '50%' }}>
             </View>
+
+            {
+              (this.props.lyrics.length > 1 && this.props.uriVideo !== '') &&
+              <TouchableOpacity style={styles.touchDrawer} onPress={() => { this.props.navigation.navigate('screenToDoSubtitle') }}>
+                <Icon name="movie" size={28} color={'#555'} />
+                <Icon name="play-circle-outline" size={18} color={styleGlobal.colorIcon} style={{ marginLeft: -10, marginTop: 5 }} />
+                <Text style={styles.textButton}>legendar</Text>
+              </TouchableOpacity>
+            }
 
           </View>
         </ImageBackground>
@@ -70,7 +95,7 @@ export class Home extends Component {
   continueButton = () => {
     return (
       <View style={styles.continueLayout}>
-        <TouchableOpacity style={styles.button} onPress={() => { this.newProject() }}>
+        <TouchableOpacity style={styles.button} onPress={() => { this._drawer.open(); }}>
           <ContinueButton />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => { this.newProject() }}>
@@ -100,7 +125,7 @@ export class Home extends Component {
 
             <View style={styles.areaButton}>
               {
-                (this.state.projeto === 'novo' && this.props.lyrics.length === 1 && this.props.uriVideoPath==='') ?
+                (this.state.projeto === 'novo' && this.props.lyrics.length === 1 && this.props.uriVideoPath === '') ?
                   (
                     <TouchableOpacity style={styles.button} onPress={() => { this.newProject() }}>
                       <NewButton params={{ props: 'novo' }} />
@@ -111,7 +136,6 @@ export class Home extends Component {
                   )
               }
             </View>
-
           </View>
         </LinearGradient>
       </Drawer>
@@ -157,13 +181,19 @@ const styles = StyleSheet.create({
   },
   sideDrawer: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.5)'
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
   logo: {
-    paddingTop: 10,
+    paddingTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
     height: '20%'
+  },
+  touchDrawer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    marginLeft: 20,
+    alignItems: 'center'
   },
   continueLayout: {
     flex: 1,
@@ -174,14 +204,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#f6e7f9',
-    marginLeft: 10
+    marginHorizontal: 10
   },
 })
 
 const mapStateToProps = (state) => {
   return {
     lyrics: state.lyrics.inputLyric,
-    uriVideoPath:state.video.uriVideoPath,
+    uriVideoPath: state.video.uriVideoPath,
   }
 }
 
