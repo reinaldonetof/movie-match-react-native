@@ -13,6 +13,7 @@ import { styleGlobal } from './StyleGlobal';
 import { connect } from 'react-redux';
 import { lyricsArray } from '../actions/lyricsAction';
 import { uriVideo } from '../actions/videoActions';
+import { saveReset } from '../actions/saveAction';
 
 
 
@@ -32,6 +33,7 @@ export class Home extends Component {
     this.setState(s);
     this.props.uriVideo('');
     this.props.lyricsArray(['']);
+    this.props.saveReset();
   }
 
   contentDrawer = () => {
@@ -215,5 +217,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-const homeConnect = connect(mapStateToProps, { lyricsArray, uriVideo })(Home);
+const homeConnect = connect(mapStateToProps, { lyricsArray, uriVideo, saveReset })(Home);
 export default homeConnect;

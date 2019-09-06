@@ -14,7 +14,7 @@ import AppInitial from './AppInitial';
 const persistConfig = {
   key:'root',
   storage,
-  whitelist:['valueCBox','video','lyrics']
+  whitelist:['valueCBox','video','lyrics', 'save']
 };
 
 const persistedReducer = persistReducer(persistConfig, Reducers);
