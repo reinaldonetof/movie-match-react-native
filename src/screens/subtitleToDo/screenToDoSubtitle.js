@@ -189,10 +189,12 @@ export class screenToDoSubtitle extends Component {
             }
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.areaButtons}
-            onPress={() => { this.saveTimeAndArray(this.state.currentTime, this.state.lyricsArray, this.state.stringComplete) }}>
-            <Icon name="save" size={28} color={styleGlobal.colorIcon} />
-          </TouchableOpacity>
+          {(!this.state.alreadyAtt) &&
+            <TouchableOpacity style={styles.areaButtons}
+              onPress={() => { this.saveTimeAndArray(this.state.currentTime, this.state.lyricsArray, this.state.stringComplete) }}>
+              <Icon name="save" size={28} color={styleGlobal.colorIcon} />
+            </TouchableOpacity>
+          }
         </View>
         <View style={{ flex: 1 }}>
           <TouchableOpacity style={styles.areaButtons}

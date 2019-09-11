@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Touchable from 'react-native-platform-touchable';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { styleGlobal } from '../StyleGlobal';
 import DownloadLogo from '../../assets/icones/down_subt.png';
 import InternetLogo from '../../assets/icones/search_internet.png'
 
 export default class homeToLyrics extends Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {}

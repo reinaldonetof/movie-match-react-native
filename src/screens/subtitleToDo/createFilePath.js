@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, PermissionsAndroid, View, Text } from 'react-native';
 import RNFS from 'react-native-fs';
-import Toast from 'react-native-easy-toast';
 
 export const createFile = (uriVideo, stringComplete) => {
 
@@ -19,31 +18,30 @@ export const createFile = (uriVideo, stringComplete) => {
     RNFS.LibraryDirectoryPath + '/Legendas/'
 
   const constRoutePath = routePath
-  const constFileName = fileName
+  const constFileURIName = uriVideo + fileName
   const constFileUri = routePath + fileName
 
+  alert(constFileURIName)
   checkPath(constRoutePath, constFileUri, stringComplete)
 }
 
 const checkPath = (pathUri, fileUri, stringComplete) => {
   RNFS.exists(pathUri)
     .then((result) => {
-      alert(result)
-      resultCheck(result, fileUri, stringComplete);
+      resultCheck(result, pathUri, fileUri, stringComplete);
     })
     .catch((error) => {
       alert('aquio' + error)
     })
 }
 
-const resultCheck = (result, fileUri, stringComplete) => {
+const resultCheck = (result, pathUri, fileUri, stringComplete) => {
   if (result) {
     writeFile(fileUri, stringComplete);
   }
   else {
-    RNFS.mkdir(state.uriOrig)
+    RNFS.mkdir(pathUri)
       .then((result) => {
-        alert('Criando a pasta');
         writeFile(fileUri, stringComplete);
       })
       .catch((err) => {
@@ -55,7 +53,7 @@ const resultCheck = (result, fileUri, stringComplete) => {
 const writeFile = (fileUri, stringToFile) => {
   RNFS.writeFile(fileUri, stringToFile, 'utf8')
     .then((success) => {
-      alert('Arquivo criado');
+      alert('Arquivo criado na pasta /Legendas/');
     })
     .catch((err) => {
       alert('Erro: ' + err);

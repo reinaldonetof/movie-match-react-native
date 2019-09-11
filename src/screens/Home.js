@@ -82,9 +82,9 @@ export class Home extends Component {
             {
               (this.props.lyrics.length > 1 && this.props.uriVideo !== '') &&
               <TouchableOpacity style={styles.touchDrawer} onPress={() => { this.props.navigation.navigate('screenToDoSubtitle') }}>
-                <Icon name="movie" size={28} color={'#555'} />
-                <Icon name="play-circle-outline" size={18} color={styleGlobal.colorIcon} style={{ marginLeft: -10, marginTop: 5 }} />
-                <Text style={styles.textButton}>legendar</Text>
+                <Icon name="movie" size={50} color={'rgba(138,207,217,1)'} />
+                <Icon name="play-circle-outline" size={26} color={'rgba(255,255,0,1)'} style={{ marginLeft: -15, marginTop: 5 }} />
+                <Text style={[styles.textButton, { fontSize: 20 }]}>Action</Text>
               </TouchableOpacity>
             }
 
@@ -127,7 +127,7 @@ export class Home extends Component {
 
             <View style={styles.areaButton}>
               {
-                (this.state.projeto === 'novo' && this.props.lyrics.length === 1 && this.props.uriVideoPath === '') ?
+                (this.state.projeto === 'novo' && this.props.lyrics.length <= 1 && this.props.uriVideoPath === '') ?
                   (
                     <TouchableOpacity style={styles.button} onPress={() => { this.newProject() }}>
                       <NewButton params={{ props: 'novo' }} />

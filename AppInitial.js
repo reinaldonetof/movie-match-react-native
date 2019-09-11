@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { createAppContainer, createStackNavigator } from 'react-navigation';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import IntroSlider from './src/introSlider/IntroSlider';
 import Home from './src/screens/Home';
@@ -22,31 +23,48 @@ const AppNavigator = createAppContainer(createStackNavigator({
     }
   },
   homeToLyrics: {
-    screen: homeToLyrics
+    screen: homeToLyrics,
+    navigationOptions: {
+      title:'Menu Lyrics',
+    }
   },
   inputText: {
-    screen: inputText
+    screen: inputText,
+    navigationOptions: {
+      title: 'Cole seu Texto',
+    }
   },
   searchText: {
-    screen: searchText
+    screen: searchText,
+    navigationOptions: {
+    }
   },
   searchVideo: {
-    screen: searchVideo
+    screen: searchVideo,
+    navigationOptions: {
+    }
   },
   screenToDoSubtitle:{
-    screen:screenToDoSubtitle
+    screen:screenToDoSubtitle,
+    navigationOptions: {
+    }
   },
   optionHome:{
     screen:optionHome,
-    navigationOptions:{
-      title:'Menu Opções'
+    navigationOptions: {
+      title: 'Menu Opções',
     }
   }
 }, {
-    initialRouteName: 'Home'
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#101D29',
+      },
+      headerTintColor: '#DDD'
+    }
   }
 ))
-
 
 export class AppInitial extends Component {
   constructor(props) {

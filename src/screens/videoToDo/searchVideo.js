@@ -139,12 +139,12 @@ export class searchVideo extends Component {
                   </TouchableOpacity>
               }
             </View>
-            <Text style={{ color: '#FFFFFF', fontSize:10 }}>uri: {this.state.uri}</Text>
-            <Text style={{ color: '#FFFFFF', fontSize:10 }}>uriOrig: {this.state.uriOrig}</Text>
+            <Text style={{ color: '#FFFFFF', fontSize:10 }}></Text>
+            <Text style={{ color: '#FFFFFF', fontSize:10 }}></Text>
           </View>
           <View style={styles.returnVideo}>
             {(this.state.uri == '' || this.state.uri === undefined) ?
-              <Text>Selecione um Vídeo</Text>
+              <Text style={{ color: '#FFFFFF', fontSize: 10 }}>Selecione um Vídeo</Text>
               :
               (
                 <Video source={{ uri: this.state.uri }}
